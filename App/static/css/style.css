@@ -2,13 +2,3 @@
     margin: 0;
     padding: 0;
 }
-
-
-/* Keep the footer always down */
-.wrapper {
-    min-height: 100vh;
-    margin-bottom: 50px;
-}
-#footer, .push {
-    height: 50px;
-}
