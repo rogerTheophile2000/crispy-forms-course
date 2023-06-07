@@ -3,8 +3,7 @@
 
 {% block content %}
 <div class="container pb-5" style="width: 95%; font-size: 1rem;">
-    <div class="row">
-        <div class="col-md-9">
+    <div class="">
             <form method="POST" class="card p-3 mt-5">
                 {% csrf_token %}
                 <!-- {{ form | crispy}} -->
@@ -17,19 +16,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         {{ form.email|as_crispy_field }}
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         {{ form.age|as_crispy_field }}
+                    </div>
+                    <div class="col-4">
+                        {{ form.phone|as_crispy_field }}
                     </div>
                 </div>
                 {{ form.message|as_crispy_field }}
         
                 <button class="btn btn-outline-primary" type="submit" style="width: 100px;">submit</button>
             </form>
-        </div>
-        <div class="col-md-3">
+        
             <!-- Message from backend -->
             {% for message in messages %}
                 {% if message.tags == 'success' %}
@@ -39,7 +40,6 @@
                     </div>
                 {% endif %}
             {% endfor %}
-        </div>
     </div>
 
 </div>

@@ -46,12 +46,18 @@ class CandidateForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'placeholder':'Parlez brievement de vous', 'rows':7})
     )
     
-
-#     Name: ^[a-zA-ZÀ-ÿ\s]*$
-#     Email: ^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$
-#     Age: ^[0-9]*$
     class Meta:
         model = Candidate
         fields = "__all__"
         # fields = ['firstname', 'lastname', 'email', 'age', 'message']
         # exclude = ['firstname', 'lastname', 'email', 'age', 'message']
+
+        # outside widget
+        widgets = {
+            'phone':forms.TextInput(attrs={
+                'style':'font-size: 1rem',
+                'placeholder':'Phone number',
+                'data-mask':'(000) 000-000-000'
+                }
+            )
+        }
