@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container pb-5" style="width: 95%; font-size: 1rem;">
     <div class="">
-            <form method="POST" class="card p-3 mt-5">
+            <form method="POST" enctype="multipart/form-data" class="card p-3 mt-5">
                 {% csrf_token %}
                 <!-- {{ form | crispy}} -->
                 <div class="row">
@@ -50,6 +50,9 @@
                 {{ form.experience|as_crispy_field }}
                 <hr style="border:px solid #007bff;">
                 {{ form.message|as_crispy_field }}
+
+                <hr style="border:px solid #007bff;">
+                {{ form.file|as_crispy_field }}
         
                 <button class="btn btn-outline-primary" type="submit" style="width: 100px;">submit</button>
             </form>

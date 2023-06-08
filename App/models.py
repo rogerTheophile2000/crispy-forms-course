@@ -35,6 +35,7 @@ class Candidate(models.Model):
     smoker = models.CharField(max_length=3, choices=SMOKER, default="No")
     email = models.EmailField(max_length=70)
     message = models.TextField()
+    file = models.FileField()
     created_at = models.DateTimeField(auto_now_add=True)
     situation = models.CharField(max_length=50, null=True, choices= SITUATION, default="Pending")
 

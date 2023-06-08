@@ -16,31 +16,47 @@ class Uppercase(forms.CharField):
 class CandidateForm(forms.ModelForm):
 
     #  VALIDATIONS
+    # firstname
     firstname = forms.CharField(
-        label='Nom', min_length=3, max_length=50, 
-        validators=[RegexValidator(r'^[a-zA-ZÀ-ÿ\s]*$', 
-        message="Only letters is allowd !")],
-        required=True, 
-        widget=forms.TextInput(attrs={'placeholder':'Votre nom'})
+        label = 'Nom', min_length=3, max_length=50, 
+        validators = [RegexValidator(r'^[a-zA-ZÀ-ÿ\s]*$', 
+        message = "Only letters is allowd !")],
+        required = True, 
+        widget=forms.TextInput(attrs={
+            'placeholder':'Votre nom',
+            'style':'text-transform: capitalize; font-size:1rem',
+        })
     )
 
+    # lastname
     lastname = forms.CharField(
-        label='Post-nom', min_length=3, max_length=50, 
-        validators=[RegexValidator(r'^[a-zA-ZÀ-ÿ\s]*$', 
-        message="Only letters is allowd !")],
-        widget=forms.TextInput(attrs={'placeholder':'Votre post-nom'})
+        label = 'Post-nom', min_length=3, max_length=50, 
+        validators = [RegexValidator(r'^[a-zA-ZÀ-ÿ\s]*$', 
+        message = "Only letters is allowd !")],
+        widget = forms.TextInput(attrs={
+            'placeholder':'Votre post-nom',
+            'style':'text-transform: capitalize; font-size:1rem',
+        })
     )
     
+    # job
     job = Uppercase(
-        label='Job Code', min_length=5, max_length=5,
-        widget=forms.TextInput(attrs={'placeholder':'Example: FR-22'})
+        label = 'Job Code', min_length=5, max_length=5,
+        widget = forms.TextInput(attrs={
+            'placeholder':'Example: FR-22',
+            'style':'text-transform: uppercase; font-size:1rem',
+        })
     )
     
+    # email
     email = Lowercase(
-        label='Adresse mail', min_length=10, max_length=50, 
-        validators=[RegexValidator(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$', 
-        message="Put a valid email address !")],
-        widget=forms.TextInput(attrs={'placeholder':'Votre Adresse mail'})
+        label = 'Adresse mail', min_length=10, max_length=50, 
+        validators = [RegexValidator(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$', 
+        message = "Put a valid email address !")],
+        widget = forms.TextInput(attrs={
+            'placeholder':'Votre Adresse mail',
+            'style':'text-transform: lowercase; font-size:1rem',
+        })
     )
 
     # meth 1
@@ -48,23 +64,36 @@ class CandidateForm(forms.ModelForm):
     
     # meth 1
     
+    # age
     age = forms.CharField(
-        label='Age', min_length=2, max_length=3,
-        validators=[RegexValidator(r'^[0-9]*$', 
-        message="Only Numbers is allowd !")],
-        widget=forms.TextInput(attrs={'placeholder':'Votre Age'})
+        label = 'Age', min_length=2, max_length=3,
+        validators = [RegexValidator(r'^[0-9]*$', 
+        message = "Only Numbers is allowd !")],
+        widget = forms.TextInput(attrs={'placeholder':'Votre Age'})
     )
     
-    
+    # message
     message = forms.CharField(
-        label='Talk little about you', 
+        label = 'Talk little about you', 
         min_length=50, max_length=1000,
-        widget=forms.Textarea(attrs={'placeholder':'Parlez brievement de vous', 'rows':7})
+        widget = forms.Textarea(attrs={
+            'placeholder':'Parlez brievement de vous',
+            'rows':7
+        }),
+    )
+
+    # file upload
+    file = forms.FileField(
+        widget= forms.ClearableFileInput(
+            attrs={
+                'style': 'font-size : 1rem',
+            }
+        ),
     )
 
     experience = forms.BooleanField(
-        label="I have exprerience",
-        required= False
+        label = "I have exprerience",
+        required = False
     )
 
     # Method 1 (gender)
@@ -107,21 +136,25 @@ class CandidateForm(forms.ModelForm):
                 }
             ),
             'salary':forms.Select(
-                choices= SALARY,
-                attrs={
+                choices = SALARY,
+                attrs = {
                     'class':'form-control',
                 }
             ),
             'gender':forms.RadioSelect(
-                choices= GENDER,
-                attrs={
+                choices = GENDER,
+                attrs = {
                     'class':'btn-check',
                 }
             ),
             'smoker':forms.RadioSelect(
-                choices= SMOKER,
-                attrs={
+                choices = SMOKER,
+                attrs = {
                     'class':'btn-check',
+                }
+            ),
+            'personality':forms.Select(attrs = {
+                    'style':'font-size: 1rem;',
                 }
             ),
             
@@ -132,30 +165,30 @@ class CandidateForm(forms.ModelForm):
         super(CandidateForm, self).__init__(*args, **kwargs)
 
 
-        #  *********** CONTROL PANEL (optional method to control) *********|
-        # input required
+        #  *********** CONTROL PANEL (individual input) *********|
+        # 1. input required
         # self.fields['message'].required = True
 
-        # Input disabled
+        # 2. Input disabled
         # self.fields['experience'].disabled = False
 
-        # Input Readonly
+        # 3. Input Readonly
         # self.fields['email'].widget.attrs.update({'readonly' : 'readonly'})
 
-        #  *********** SELECT OPTION *********|
+        #  4. SELECT OPTION *********|
         self.fields["personality"].choices = [('', 'Select a personality'),] + list(self.fields["personality"].choices)[1:]
         
-        #  *********** WIDGET CONTROL *********|
+        #  5. WIDGET CONTROL *********|
         self.fields['phone'].widget.attrs.update({'style':'font-size: 1rem', 'placeholder':'No Phone','data-mask':'(000) 000-000-000'})
 
         
         #  *********** READONLY / DISABLED 'LOOP FOR' IN [ARRAY] *********|
-        #  readonly
+        # readonly
         # readonly = ['firstname', 'lastname', 'job']
         # for field in readonly:
         #     self.fields[field].widget.attrs['readonly'] = 'False'
 
-        # # disabled
+        # disabled
         # disabled = ['firstname', 'lastname', 'job']
         # for field in disabled:
         #     self.fields[field].widget.attrs['disabled'] = 'true'
