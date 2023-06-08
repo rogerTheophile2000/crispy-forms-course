@@ -76,9 +76,17 @@ class CandidateForm(forms.ModelForm):
 
     class Meta:
         model = Candidate
-        fields = "__all__"
-        # fields = ['firstname', 'lastname', 'email', 'age', 'message']
-        # exclude = ['firstname', 'lastname', 'email', 'age', 'message']
+        # fields = "__all__"
+        exclude =['created_at']
+        
+        # labels control
+        labels = {
+            'phone':'Enter Phone',
+            'salary':'Choose your Salary',
+            'personality':'Choose your Personality',
+            'gender':'Choose your gender',
+            'smoker':'Do you smoke',
+        }
 
         SALARY = (
             ('','Salary expectation (month)'),
@@ -93,9 +101,9 @@ class CandidateForm(forms.ModelForm):
         # outside widget
         widgets = {
             'phone':forms.TextInput(attrs={
-                'style':'font-size: 1rem',
-                'placeholder':'Phone number',
-                'data-mask':'(000) 000-000-000'
+                # 'style':'font-size: 1rem',
+                # 'placeholder':'Phone number',
+                # 'data-mask':'(000) 000-000-000'
                 }
             ),
             'salary':forms.Select(
@@ -118,3 +126,36 @@ class CandidateForm(forms.ModelForm):
             ),
             
         }
+
+    # Super function
+    def __init__(self, *args, **kwargs):
+        super(CandidateForm, self).__init__(*args, **kwargs)
+
+
+        #  *********** CONTROL PANEL (optional method to control) *********|
+        # input required
+        # self.fields['message'].required = True
+
+        # Input disabled
+        # self.fields['experience'].disabled = False
+
+        # Input Readonly
+        # self.fields['email'].widget.attrs.update({'readonly' : 'readonly'})
+
+        #  *********** SELECT OPTION *********|
+        self.fields["personality"].choices = [('', 'Select a personality'),] + list(self.fields["personality"].choices)[1:]
+        
+        #  *********** WIDGET CONTROL *********|
+        self.fields['phone'].widget.attrs.update({'style':'font-size: 1rem', 'placeholder':'No Phone','data-mask':'(000) 000-000-000'})
+
+        
+        #  *********** READONLY / DISABLED 'LOOP FOR' IN [ARRAY] *********|
+        #  readonly
+        # readonly = ['firstname', 'lastname', 'job']
+        # for field in readonly:
+        #     self.fields[field].widget.attrs['readonly'] = 'False'
+
+        # # disabled
+        # disabled = ['firstname', 'lastname', 'job']
+        # for field in disabled:
+        #     self.fields[field].widget.attrs['disabled'] = 'true'
