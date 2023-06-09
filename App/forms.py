@@ -1,6 +1,7 @@
 from django import forms
 from .models import Candidate, SMOKER
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 
 # every letters to lowercase
 class Lowercase(forms.CharField):
@@ -192,3 +193,19 @@ class CandidateForm(forms.ModelForm):
         # disabled = ['firstname', 'lastname', 'job']
         # for field in disabled:
         #     self.fields[field].widget.attrs['disabled'] = 'true'
+
+        # prenvent duplication
+        # method 1
+        # def clean_email(self):
+        #     email = self.cleaned_data.get('email')
+        #     for obj in Candidate.objects.all():
+        #         if obj.email == email:
+        #             raise forms.ValidationError("Denied ! " + email + " is already registered>")
+        #     return email
+
+        # method 2
+        def clean_email(self):
+            email = self.cleaned_data.get('email')
+            for obj in Candidate.objects.filter(email = email).exists():
+                raise forms.ValidationError("Denied ! {} is already registered.".format(email))
+            return email
