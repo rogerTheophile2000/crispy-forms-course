@@ -1,6 +1,8 @@
 from django.db import models
-
+from multiselectfield import MultiSelectField
 # Create your models here.
+
+
 
 SITUATION = {
     ('Pending', 'Pending'),
@@ -18,8 +20,63 @@ PERSONALITY = {
 
 SMOKER = {
     ('1', 'yes'),
-    ('2', 'no')
+    ('2', 'no'),
 }
+
+# FRAMEWORKS = (
+#     ('Laravel', 'Laravel'),
+#     ('Angular', 'Angular'),
+#     ('Dango', 'Dango'),
+#     ('Vue', 'Vue'),
+#     ('Spring', 'Spring'),
+#     ('Others', 'Others'),
+# )
+
+# LANGUAGES = (
+#     ('Java', 'Java'),
+#     ('Python', 'Python'),
+#     ('Javascript', 'Javascript'),
+#     ('C++', 'C++'),
+#     ('Ruby', 'Ruby'),
+#     ('Others', 'Others'),
+# )
+
+# DATABASES = (
+#     ('SqlLite', 'SqlLite'),
+#     ('PostgreSql', 'PostgreSql'),
+#     ('MySQL', 'MySQL'),
+#     ('MongoDb', 'MongoDb'),
+#     ('Oracle', 'Oracle'),
+#     ('Others', 'Others'),
+# )
+
+# LIBRARIES = (
+#     ('React.js', 'React.js'),
+#     ('Ajax', 'Ajax'),
+#     ('Jquery', 'Jquery'),
+#     ('Chart.js', 'Chart.js'),
+#     ('Gaap', 'Gaap'),
+#     ('Others', 'Others'),
+# )
+
+# MOBILE = (
+#     ('Koltin', 'Koltin'),
+#     ('React Native', 'React Native'),
+#     ('Kivy', 'Kivy'),
+#     ('Ionic', 'Ionic'),
+#     ('Fluter', 'Fluter'),
+#     ('Others', 'Others'),
+# )
+
+# OTHERS = (
+#     ('UML', 'UML'),
+#     ('GIT', 'GIT'),
+#     ('GraphQL', 'GraphQL'),
+#     ('Docker', 'Docker'),
+#     ('Kubernates', 'Kubernates'),
+#     ('Others', 'Others'),
+# )
+
 
 
 class Candidate(models.Model):
@@ -39,6 +96,13 @@ class Candidate(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     situation = models.CharField(max_length=50, null=True, choices= SITUATION, default="Pending")
 
+    # multi checkboxes
+    # frameworks = MultiSelectField(choices=FRAMEWORKS, default="")
+    # Languages = MultiSelectField(choices=LANGUAGES, default="")
+    # databases = MultiSelectField(choices=DATABASES, default="")
+    # libraries = MultiSelectField(choices=LIBRARIES, default="")
+    # mobile = MultiSelectField(choices=MOBILE, default="")
+    # others = MultiSelectField(choices=OTHERS, default="")
     # capitalize (firstname and lastname)
     def clean(self):
         self.firstname = self.firstname.capitalize()

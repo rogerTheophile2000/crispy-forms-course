@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # 'jazzmin',
+    'multiselectfield',
     'django_cleanup.apps.CleanupConfig',
     'jet.dashboard',
     'jet',
