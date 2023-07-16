@@ -96,7 +96,7 @@ class CandidateForm(forms.ModelForm):
         label = "I have exprerience",
         required = False
     )
-
+    
     # Method 1 (gender)
     # GENDER = [('M', 'Masculin'), ('F', 'Feminin')]
     # gender = forms.CharField(
