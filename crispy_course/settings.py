@@ -33,10 +33,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # 'jazzmin',
-    'multiselectfield',
-    'django_cleanup.apps.CleanupConfig',
-    'jet.dashboard',
-    'jet',
+    # 'multiselectfield',
+    # 'django_cleanup.apps.CleanupConfig',
+    # 'jet.dashboard',
+    # 'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
